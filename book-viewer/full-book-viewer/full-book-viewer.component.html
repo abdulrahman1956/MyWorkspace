@@ -1,0 +1,50 @@
+
+<form>
+        <div class="form-group">
+                <input type="search" ng-model="search" class="form-control" placeholder="Search the book">
+        </div>
+</form>
+
+
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+
+        <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-default" ng-click="$ctrl.modify()">Modify</button>
+        </div>
+        <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-default" ng-click="$ctrl.update()">Update</button>
+        </div>
+</div>
+<table>
+        <thead class="thead-dark">
+                <tr>
+                        <th>Book</th>
+                        <th>Author</th>
+                        <th>Year</th>
+                </tr>
+        </thead>
+        <tr ng-repeat="book in $ctrl.books | startFrom: $ctrl.currentPage| limitTo: $ctrl.pageSize | filter: search">
+                <td>
+                        <div ng-hide="$ctrl.viewField">{{book.title}}</div>
+                        <div ng-show="$ctrl.modifyField">
+                                <input type="text" ng-model="book.title">
+                        </div>
+                </td>
+                <td>
+                        <div ng-hide="$ctrl.viewField">{{book.author}}</div>
+                        <div ng-show="$ctrl.modifyField">
+                                <input type="text" ng-model="book.author">
+                        </div>
+                </td>
+                <td>
+                        <div ng-hide="$ctrl.viewField">{{book.year}}</div>
+                        <div ng-show="$ctrl.modifyField">
+                                <input type="text" ng-model="book.year">
+                        </div>
+                </td>
+                <td>
+                        <button type="submit" class="btn btn-danger" ng-click="$ctrl.DeleteItem(book)">Delete</button>
+                </td>
+        </tr>
+</table>
+<ul uib-pagination total-items="$ctrl.books.length" ng-model="$ctrl.currentPage" items-per-page="$ctrl.pageSize"></ul>

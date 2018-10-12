@@ -1,0 +1,46 @@
+<form>
+    <div class="form-group">
+        <input type="search" ng-model="search" class="form-control" placeholder="Search the book">
+    </div>
+</form>
+
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-default" ng-click="toggle=!toggle">{{toggle ? 'Undo' : 'Add item'}}</button>
+    </div>
+    <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-default" ng-show="toggle" ng-click="$ctrl.addItem()">Add</button>
+    </div>
+    <div class="btn-group" role="group">
+        <input type="text" class="form-control" placeholder="Add Author" ng-model="$ctrl.enteredItem" ng-show="toggle">
+    </div>
+</div>
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+
+    <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-default" ng-click="$ctrl.modify()">Modify</button>
+    </div>
+    <div class="btn-group" role="group">
+        <button type="submit" class="btn btn-default" ng-click="$ctrl.update()">Update</button>
+    </div>
+</div>
+
+
+<table>
+    <tr>
+        <th>Author</th>
+    </tr>
+    <tr ng-repeat="book in $ctrl.books | startFrom: $ctrl.currentPage| limitTo: $ctrl.pageSize | filter: search">
+        <td>
+            <div ng-hide="$ctrl.viewField">{{book.author}}</div>
+            <div ng-show="$ctrl.modifyField">
+                <input type="text" ng-model="book.author">
+            </div>
+        </td>
+        <td>
+            <button type="submit" class="btn btn-danger" ng-click="$ctrl.DeleteItem(book)">Delete</button>
+        </td>
+
+    </tr>
+</table>
+<ul uib-pagination total-items="$ctrl.books.length" ng-model="$ctrl.currentPage" items-per-page="$ctrl.pageSize"></ul>
